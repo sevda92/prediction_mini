@@ -1,0 +1,18 @@
+{
+  "formula": "10 + 20 × Quantity",
+  "unit": "demo units",
+  "examples": [
+    {
+      "quantity": 2,
+      "expected": 50
+    },
+    {
+      "quantity": 0,
+      "expected": 10
+    },
+    {
+      "quantity": 5,
+      "expected": 110
+    }
+  ]
+}
