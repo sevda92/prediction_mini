@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Threshold demo</title>
+  <style>body { font-family: system-ui, sans-serif; line-height: 1.5; max-width: 42rem; margin: 2rem auto; padding: 0 1rem; } label, input, button { display: block; margin: .7rem 0; } input, button { font: inherit; padding: .45rem; } #error { color: #a11; }</style>
+</head>
+<body>
+  <main>
+    <h1>Threshold demo</h1>
+    <p>Enter a synthetic probability from 0 to 1. The fixed threshold is 0.50. An alert is shown when the probability is greater than or equal to the threshold. This example is not a trained model or a real prediction.</p>
+    <form id="threshold-form" novalidate>
+      <label for="probability">Score</label>
+      <input id="probability" type="number" min="0" max="1" step="any" value="0.42" required aria-describedby="help">
+      <p id="help">Enter a number from 0 to 1, inclusive.</p>
+      <button type="submit">Check</button>
+    </form>
+    <p id="error" role="alert"></p>
+    <p id="result" aria-live="polite"></p>
+  </main>
+  <script>
+    const form = document.getElementById('threshold-form');
+    const input = document.getElementById('probability');
+    const error = document.getElementById('error');
+    const result = document.getElementById('result');
+    const threshold = 0.50;
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      error.textContent = '';
+      result.textContent = '';
+      const value = input.value.trim();
+      const probability = Number(value);
+      if (value === '' || !Number.isFinite(probability) || probability < 0 || probability > 1) {
+        error.textContent = 'Enter a number from 0 to 1, inclusive.';
+        return;
+      }
+      result.textContent = 'p=' + value + ' → ' + (probability >= threshold ? 'Alert' : 'No alert');
+    });
+  </script>
+</body>
+</html>

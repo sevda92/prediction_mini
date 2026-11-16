@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Prediction Mini checks</title><link rel="stylesheet" href="styles.css"><script src="app.js" defer></script><script defer>
+document.addEventListener("DOMContentLoaded", function () {
+  const cases = [
+    {input:"2", expected:50}, {input:"0", expected:10}, {input:"5", expected:110},
+    {input:"", invalid:true}, {input:"-1", invalid:true}, {input:"2.5", invalid:true},
+    {input:"101", invalid:true}, {input:"text", invalid:true}
+  ];
+  const list = document.getElementById("checks");
+  cases.forEach(function (item) {
+    let actual, rejected = false;
+    try { actual = calculatePrediction(item.input); } catch (error) { rejected = true; actual = error.message; }
+    const passed = item.invalid ? rejected : !rejected && actual === item.expected;
+    const li = document.createElement("li");
+    li.className = passed ? "pass" : "fail";
+    li.textContent = (passed ? "PASS" : "FAIL") + " — Quantity " + JSON.stringify(item.input) + ": actual " + (rejected ? "error: " + actual : actual) + "; expected " + (item.invalid ? "an error" : item.expected);
+    list.appendChild(li);
+  });
+});
+</script></head><body><main><h1>Prediction Mini checks</h1><p>Each case calls the calculation function in app.js.</p><ul id="checks"></ul><p><a href="index.html">Back to calculation</a></p></main></body></html>
